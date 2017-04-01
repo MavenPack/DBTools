@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
-import com.yeild.common.dbtools.DBApp;
+import com.yeild.common.dbtools.DBConf;
 import com.yeild.common.dbtools.database.ConnectionProvider;
 import com.yeild.common.dbtools.database.DbConnectionManager;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -64,7 +64,7 @@ public class C3p0ConnectionProvider implements ConnectionProvider {
 	
 	public void initDatasource() {
 		pooledDataSource = new ComboPooledDataSource();
-		String driverClass = DBApp.getDbConf("driver");
+		String driverClass = DBConf.getDbConf("driver");
 		try {
 			Class.forName(driverClass);
 			pooledDataSource.setDriverClass(driverClass);
@@ -72,27 +72,27 @@ public class C3p0ConnectionProvider implements ConnectionProvider {
 			logger.error(e2.getMessage()+" could not load, using default driver");
 		} catch (PropertyVetoException e) {
 		}
-		pooledDataSource.setUser(DBApp.getDbConfWithName(dbname, "username"));
-		pooledDataSource.setPassword(DBApp.getDbConfWithName(dbname, "password"));
-		pooledDataSource.setJdbcUrl(DBApp.getDbConfWithName(dbname, "serverURL"));
-		pooledDataSource.setPreferredTestQuery(DBApp.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driverClass)));
+		pooledDataSource.setUser(DBConf.getDbConfWithName(dbname, "username"));
+		pooledDataSource.setPassword(DBConf.getDbConfWithName(dbname, "password"));
+		pooledDataSource.setJdbcUrl(DBConf.getDbConfWithName(dbname, "serverURL"));
+		pooledDataSource.setPreferredTestQuery(DBConf.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driverClass)));
 		
-		pooledDataSource.setAcquireIncrement(DBApp.getDbPoolConf("acquireIncrement", 1));
-		pooledDataSource.setAcquireRetryAttempts(DBApp.getDbPoolConf("acquireRetryAttempts", 3));
-		pooledDataSource.setAcquireRetryDelay(DBApp.getDbPoolConf("acquireRetryDelay", 3));
-		pooledDataSource.setInitialPoolSize(DBApp.getDbPoolConf("initialPoolSize", 3));
-		pooledDataSource.setMinPoolSize(DBApp.getDbPoolConf("minPoolSize", 3));
-		pooledDataSource.setMaxPoolSize(DBApp.getDbPoolConf("maxPoolSize", 15));
-		pooledDataSource.setMaxStatements(DBApp.getDbPoolConf("maxStatements", 0));
-		pooledDataSource.setMaxStatementsPerConnection(DBApp.getDbPoolConf("maxStatementsPerConnection", 0));
-		pooledDataSource.setMaxIdleTime(DBApp.getDbPoolConf("maxIdleTime", 3600));
-		pooledDataSource.setIdleConnectionTestPeriod(DBApp.getDbPoolConf("idleConnectionTestPeriod", 60));
-		pooledDataSource.setTestConnectionOnCheckout(DBApp.getDbPoolConf("testConnectionOnCheckout", false));
-		pooledDataSource.setTestConnectionOnCheckin(DBApp.getDbPoolConf("testConnectionOnCheckin", false));
-		pooledDataSource.setCheckoutTimeout(DBApp.getDbPoolConf("checkoutTimeout", 5));
-		pooledDataSource.setUnreturnedConnectionTimeout(DBApp.getDbPoolConf("unreturnedConnectionTimeout", pooledDataSource.getMaxIdleTime()+10));
-		pooledDataSource.setDebugUnreturnedConnectionStackTraces(DBApp.getDbPoolConf("debugUnreturnedConnectionStackTraces", false));
-		pooledDataSource.setNumHelperThreads(DBApp.getDbPoolConf("numHelperThreads", 3));
+		pooledDataSource.setAcquireIncrement(DBConf.getDbPoolConf("acquireIncrement", 1));
+		pooledDataSource.setAcquireRetryAttempts(DBConf.getDbPoolConf("acquireRetryAttempts", 3));
+		pooledDataSource.setAcquireRetryDelay(DBConf.getDbPoolConf("acquireRetryDelay", 3));
+		pooledDataSource.setInitialPoolSize(DBConf.getDbPoolConf("initialPoolSize", 3));
+		pooledDataSource.setMinPoolSize(DBConf.getDbPoolConf("minPoolSize", 3));
+		pooledDataSource.setMaxPoolSize(DBConf.getDbPoolConf("maxPoolSize", 15));
+		pooledDataSource.setMaxStatements(DBConf.getDbPoolConf("maxStatements", 0));
+		pooledDataSource.setMaxStatementsPerConnection(DBConf.getDbPoolConf("maxStatementsPerConnection", 0));
+		pooledDataSource.setMaxIdleTime(DBConf.getDbPoolConf("maxIdleTime", 3600));
+		pooledDataSource.setIdleConnectionTestPeriod(DBConf.getDbPoolConf("idleConnectionTestPeriod", 60));
+		pooledDataSource.setTestConnectionOnCheckout(DBConf.getDbPoolConf("testConnectionOnCheckout", false));
+		pooledDataSource.setTestConnectionOnCheckin(DBConf.getDbPoolConf("testConnectionOnCheckin", false));
+		pooledDataSource.setCheckoutTimeout(DBConf.getDbPoolConf("checkoutTimeout", 5));
+		pooledDataSource.setUnreturnedConnectionTimeout(DBConf.getDbPoolConf("unreturnedConnectionTimeout", pooledDataSource.getMaxIdleTime()+10));
+		pooledDataSource.setDebugUnreturnedConnectionStackTraces(DBConf.getDbPoolConf("debugUnreturnedConnectionStackTraces", false));
+		pooledDataSource.setNumHelperThreads(DBConf.getDbPoolConf("numHelperThreads", 3));
 		
 		pooledDataSource.setConnectionCustomizerClassName(C3p0ConnectionCustomizer.class.getName());
     }

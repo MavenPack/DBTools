@@ -11,7 +11,7 @@ import org.logicalcobwebs.proxool.ProxoolException;
 import org.logicalcobwebs.proxool.ProxoolFacade;
 import org.logicalcobwebs.proxool.admin.SnapshotIF;
 
-import com.yeild.common.dbtools.DBApp;
+import com.yeild.common.dbtools.DBConf;
 import com.yeild.common.dbtools.database.ConnectionProvider;
 import com.yeild.common.dbtools.database.DbConnectionManager;
 
@@ -318,20 +318,20 @@ public class DefaultConnectionProvider implements ConnectionProvider {
      */
     private void loadProperties() {
 
-        driver = DBApp.getDbConfWithName(dbname, "driver");
-        serverURL = DBApp.getDbConfWithName(dbname, "serverURL");
-        username = DBApp.getDbConfWithName(dbname, "username");
-        password = DBApp.getDbConfWithName(dbname, "password");
-        testSQL = DBApp.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driver));
+        driver = DBConf.getDbConfWithName(dbname, "driver");
+        serverURL = DBConf.getDbConfWithName(dbname, "serverURL");
+        username = DBConf.getDbConfWithName(dbname, "username");
+        password = DBConf.getDbConfWithName(dbname, "password");
+        testSQL = DBConf.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driver));
 
-        String minCons = DBApp.getDbPoolConf("minConnections");
-        String maxCons = DBApp.getDbPoolConf("maxConnections");
-        String conTimeout = DBApp.getDbPoolConf("connectionTimeout");
-        testBeforeUse = DBApp.getDbPoolConf("testBeforeUse", true);
-        testAfterUse = DBApp.getDbPoolConf("testAfterUse", true);
+        String minCons = DBConf.getDbPoolConf("minConnections");
+        String maxCons = DBConf.getDbPoolConf("maxConnections");
+        String conTimeout = DBConf.getDbPoolConf("connectionTimeout");
+        testBeforeUse = DBConf.getDbPoolConf("testBeforeUse", true);
+        testAfterUse = DBConf.getDbPoolConf("testAfterUse", true);
 
         // See if we should use Unicode under MySQL
-        mysqlUseUnicode = Boolean.valueOf(DBApp.getDbPoolConf("database.mysql.useUnicode"));
+        mysqlUseUnicode = Boolean.valueOf(DBConf.getDbPoolConf("database.mysql.useUnicode"));
         try {
             if (minCons != null) {
                 minConnections = Integer.parseInt(minCons);

@@ -1,5 +1,6 @@
 package com.yeild.common.dbtools.database;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import org.apache.log4j.Logger;
 
 import com.yeild.common.Utils.ClassUtils;
-import com.yeild.common.dbtools.DBApp;
+import com.yeild.common.dbtools.DBConf;
 import com.yeild.common.dbtools.database.proxool.DefaultConnectionProvider;
 
 /**
@@ -57,6 +58,10 @@ public class DbConnectionManager {
     static boolean pstmt_fetchSizeSupported = true;
 
     private static DatabaseType databaseType = DatabaseType.unknown;
+    
+    public static void initDBConf(String pConfPath) throws IOException {
+    	DBConf.loadDbConfig(pConfPath);
+    }
 
     /**
      * Returns a database connection from the currently active connection
@@ -67,7 +72,7 @@ public class DbConnectionManager {
      * @throws SQLException if a SQL exception occurs or no connection was found.
      */
     public static Connection getConnection() throws SQLException {
-    	return getConnection(DBApp.dbNameDefault);
+    	return getConnection(DBConf.dbNameDefault);
     }
     
     public static Connection getConnection(String dbname) throws SQLException {
@@ -123,12 +128,12 @@ public class DbConnectionManager {
     }
     
     public static ConnectionProvider initDatabase() {
-    	return initDatabase(DBApp.dbNameDefault);
+    	return initDatabase(DBConf.dbNameDefault);
     }
     
     public static ConnectionProvider initDatabase(String dbname) {
     	if(dbname == null || dbname.length() < 1) {
-    		dbname = DBApp.dbNameDefault;
+    		dbname = DBConf.dbNameDefault;
     	}
     	ConnectionProvider connectionProvider = connectionProviders.get(dbname);
         if (connectionProvider == null) {
@@ -137,7 +142,7 @@ public class DbConnectionManager {
                 if (connectionProvider == null) {
                     // Attempt to load the connection provider classname as
                     // a Jive property.
-                    String className = DBApp.getDbPoolConf("connectionProvider");
+                    String className = DBConf.getDbPoolConf("connectionProvider");
                     if (className != null) {
                         // Attempt to load the class.
                         try {

@@ -8,15 +8,18 @@ import java.util.Properties;
 
 import com.yeild.common.Utils.ConvertUtils;
 
-public class DBApp {
+public class DBConf {
+	public static String dbConfName="db.properties";
+	public static String dbConfPath=null;
     private static Properties dbProperties = null;
     public static String dbPoolUsed="proxool";
     public static String dbNameDefault="postgre";
 
     public static void loadDbConfig(String confPath) throws IOException {
+    	dbConfPath = confPath;
     	InputStream confInputStream = null;
 		try {
-			File confFile = new File(confPath);
+			File confFile = new File(dbConfPath + dbConfName);
 			confInputStream = new FileInputStream(confFile);
 			dbProperties = new Properties();
 			dbProperties.load(confInputStream);
