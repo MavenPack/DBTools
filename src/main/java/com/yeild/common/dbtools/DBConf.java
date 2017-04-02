@@ -14,23 +14,19 @@ public class DBConf {
 	private static Logger logger = Logger.getLogger(DBConf.class);
 	public static String dbConfName="db.properties";
 	public static String dbConfPath=null;
-	public static String dbDefConfPath=null;
     private static Properties dbDefProperties = null;
     private static Properties dbProperties = null;
     public static String dbPoolUsed="proxool";
     public static String dbNameDefault="postgre";
 
     public static void loadDbConfig(String confPath) throws IOException {
-    	if(dbDefConfPath == null) {
+    	if(dbDefProperties == null) {
     		InputStream inputStream = DBConf.class.getClassLoader().getResourceAsStream(dbConfName);
     		if(inputStream == null) {
     			throw new IOException("default db config file not found.");
     		}
     		dbDefProperties = new Properties();
     		dbDefProperties.load(inputStream);
-    	}
-    	if(dbDefProperties == null) {
-    		dbDefProperties = getProperties(dbDefConfPath);
     	}
     	dbConfPath = confPath;
     	FileInputStream confInputStream = null;
@@ -51,15 +47,6 @@ public class DBConf {
 		}
 		dbPoolUsed = getConfValue("database.pool", "proxool");
 		dbNameDefault = getConfValue("database.default", "postgre");
-    }
-    
-    private static Properties getProperties(String path) throws IOException {
-		File confFile = new File(path);
-		FileInputStream confInputStream = new FileInputStream(confFile);
-		Properties result = new Properties();
-		result.load(confInputStream);
-		confInputStream.close();
-		return result;
     }
     
     private static String getConfValue(String key, String defValue) {
