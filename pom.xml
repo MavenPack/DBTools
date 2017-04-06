@@ -13,15 +13,45 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.8</jdk.version>
+		<jdk.classifier></jdk.classifier>
 		<postgresql.version>42.0.0</postgresql.version>
 		<!-- <postgresql.version>42.0.0.jre6</postgresql.version> -->
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>jdk18</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<jdk.version>1.8</jdk.version>
+				<jdk.classifier></jdk.classifier>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk16</id>
+			<properties>
+				<jdk.version>1.6</jdk.version>
+				<jdk.classifier>${jdk.version}</jdk.classifier>
+			</properties>
+		</profile>
+		<profile>
+			<id>jdk17</id>
+			<properties>
+				<jdk.version>1.7</jdk.version>
+				<jdk.classifier>${jdk.version}</jdk.classifier>
+			</properties>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.yeild.common</groupId>
 			<artifactId>Utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+
+			<classifier>${jdk.classifier}</classifier>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -66,6 +96,14 @@
 					<configuration>
 						<source>${jdk.version}</source>
 						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+					<configuration>
+						<classifier>${jdk.classifier}</classifier>
 					</configuration>
 				</plugin>
 				<plugin>
