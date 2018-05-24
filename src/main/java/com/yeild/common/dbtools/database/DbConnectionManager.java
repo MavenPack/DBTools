@@ -35,7 +35,7 @@ public class DbConnectionManager {
 	private static final Logger Log = Logger.getLogger(DbConnectionManager.class);
 
 //    private static ConnectionProvider connectionProvider;
-    private static HashMap<String, ConnectionProvider> connectionProviders = new HashMap<>(1);
+    private static HashMap<String, ConnectionProvider> connectionProviders = new HashMap<String, ConnectionProvider>(1);
     private static final Object providerLock = new Object();
 
     // True if connection profiling is turned on. Always false by default.
