@@ -46,13 +46,6 @@
 	</profiles>
 
 	<dependencies>
-<!-- 		<dependency>
-			<groupId>com.yeild.common</groupId>
-			<artifactId>Utils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-
-			<classifier>${jdk.classifier}</classifier>
-		</dependency> -->
 		<dependency>
 		    <groupId>com.github.MavenPack</groupId>
 		    <artifactId>Utils</artifactId>
