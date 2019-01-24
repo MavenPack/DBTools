@@ -77,22 +77,22 @@ public class C3p0ConnectionProvider implements ConnectionProvider {
 		pooledDataSource.setJdbcUrl(DBConf.getDbConfWithName(dbname, "serverURL"));
 		pooledDataSource.setPreferredTestQuery(DBConf.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driverClass)));
 		
-		pooledDataSource.setAcquireIncrement(DBConf.getDbPoolConf("acquireIncrement", 1));
-		pooledDataSource.setAcquireRetryAttempts(DBConf.getDbPoolConf("acquireRetryAttempts", 3));
-		pooledDataSource.setAcquireRetryDelay(DBConf.getDbPoolConf("acquireRetryDelay", 3));
-		pooledDataSource.setInitialPoolSize(DBConf.getDbPoolConf("initialPoolSize", 3));
-		pooledDataSource.setMinPoolSize(DBConf.getDbPoolConf("minPoolSize", 3));
-		pooledDataSource.setMaxPoolSize(DBConf.getDbPoolConf("maxPoolSize", 15));
-		pooledDataSource.setMaxStatements(DBConf.getDbPoolConf("maxStatements", 0));
-		pooledDataSource.setMaxStatementsPerConnection(DBConf.getDbPoolConf("maxStatementsPerConnection", 0));
-		pooledDataSource.setMaxIdleTime(DBConf.getDbPoolConf("maxIdleTime", 3600));
-		pooledDataSource.setIdleConnectionTestPeriod(DBConf.getDbPoolConf("idleConnectionTestPeriod", 60));
-		pooledDataSource.setTestConnectionOnCheckout(DBConf.getDbPoolConf("testConnectionOnCheckout", false));
-		pooledDataSource.setTestConnectionOnCheckin(DBConf.getDbPoolConf("testConnectionOnCheckin", false));
-		pooledDataSource.setCheckoutTimeout(DBConf.getDbPoolConf("checkoutTimeout", 5));
-		pooledDataSource.setUnreturnedConnectionTimeout(DBConf.getDbPoolConf("unreturnedConnectionTimeout", pooledDataSource.getMaxIdleTime()+10));
-		pooledDataSource.setDebugUnreturnedConnectionStackTraces(DBConf.getDbPoolConf("debugUnreturnedConnectionStackTraces", false));
-		pooledDataSource.setNumHelperThreads(DBConf.getDbPoolConf("numHelperThreads", 3));
+		pooledDataSource.setAcquireIncrement(DBConf.getDbPoolConf(dbname, "acquireIncrement", 1));
+		pooledDataSource.setAcquireRetryAttempts(DBConf.getDbPoolConf(dbname, "acquireRetryAttempts", 3));
+		pooledDataSource.setAcquireRetryDelay(DBConf.getDbPoolConf(dbname, "acquireRetryDelay", 3));
+		pooledDataSource.setInitialPoolSize(DBConf.getDbPoolConf(dbname, "initialPoolSize", 3));
+		pooledDataSource.setMinPoolSize(DBConf.getDbPoolConf(dbname, "minPoolSize", 3));
+		pooledDataSource.setMaxPoolSize(DBConf.getDbPoolConf(dbname, "maxPoolSize", 15));
+		pooledDataSource.setMaxStatements(DBConf.getDbPoolConf(dbname, "maxStatements", 0));
+		pooledDataSource.setMaxStatementsPerConnection(DBConf.getDbPoolConf(dbname, "maxStatementsPerConnection", 0));
+		pooledDataSource.setMaxIdleTime(DBConf.getDbPoolConf(dbname, "maxIdleTime", 3600));
+		pooledDataSource.setIdleConnectionTestPeriod(DBConf.getDbPoolConf(dbname, "idleConnectionTestPeriod", 60));
+		pooledDataSource.setTestConnectionOnCheckout(DBConf.getDbPoolConf(dbname, "testConnectionOnCheckout", false));
+		pooledDataSource.setTestConnectionOnCheckin(DBConf.getDbPoolConf(dbname, "testConnectionOnCheckin", false));
+		pooledDataSource.setCheckoutTimeout(DBConf.getDbPoolConf(dbname, "checkoutTimeout", 5));
+		pooledDataSource.setUnreturnedConnectionTimeout(DBConf.getDbPoolConf(dbname, "unreturnedConnectionTimeout", pooledDataSource.getMaxIdleTime()+10));
+		pooledDataSource.setDebugUnreturnedConnectionStackTraces(DBConf.getDbPoolConf(dbname, "debugUnreturnedConnectionStackTraces", false));
+		pooledDataSource.setNumHelperThreads(DBConf.getDbPoolConf(dbname, "numHelperThreads", 3));
 		
 		pooledDataSource.setConnectionCustomizerClassName(C3p0ConnectionCustomizer.class.getName());
     }
@@ -103,8 +103,8 @@ public class C3p0ConnectionProvider implements ConnectionProvider {
 			return super.toString();
 		}
 		try {
-			return "TotalConnectionCount-->"+pooledDataSource.getNumConnectionsAllUsers() + ",AvailableConnectionCount-->"
-			+ pooledDataSource.getNumIdleConnectionsAllUsers() + ",ActiveConnectionCount-->" + pooledDataSource.getNumBusyConnectionsAllUsers();
+			return dbname+":Max->"+pooledDataSource.getMaxPoolSize()+",Total->"+pooledDataSource.getNumConnectionsAllUsers() + ",Avai->"
+			+ pooledDataSource.getNumIdleConnectionsAllUsers() + ",Act->" + pooledDataSource.getNumBusyConnectionsAllUsers();
 		} catch (SQLException e) {
 			return super.toString();
 		}

@@ -324,14 +324,14 @@ public class DefaultConnectionProvider implements ConnectionProvider {
         password = DBConf.getDbConfWithName(dbname, "password");
         testSQL = DBConf.getDbConfWithName(dbname, "testSQL", DbConnectionManager.getTestSQL(driver));
 
-        String minCons = DBConf.getDbPoolConf("minConnections");
-        String maxCons = DBConf.getDbPoolConf("maxConnections");
-        String conTimeout = DBConf.getDbPoolConf("connectionTimeout");
-        testBeforeUse = DBConf.getDbPoolConf("testBeforeUse", true);
-        testAfterUse = DBConf.getDbPoolConf("testAfterUse", true);
+        String minCons = DBConf.getDbPoolConf(dbname, "minConnections");
+        String maxCons = DBConf.getDbPoolConf(dbname, "maxConnections");
+        String conTimeout = DBConf.getDbPoolConf(dbname, "connectionTimeout");
+        testBeforeUse = DBConf.getDbPoolConf(dbname, "testBeforeUse", true);
+        testAfterUse = DBConf.getDbPoolConf(dbname, "testAfterUse", true);
 
         // See if we should use Unicode under MySQL
-        mysqlUseUnicode = Boolean.valueOf(DBConf.getDbPoolConf("database.mysql.useUnicode"));
+        mysqlUseUnicode = Boolean.valueOf(DBConf.getDbPoolConf(dbname, "database.mysql.useUnicode"));
         try {
             if (minCons != null) {
                 minConnections = Integer.parseInt(minCons);

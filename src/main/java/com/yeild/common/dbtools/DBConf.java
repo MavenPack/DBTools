@@ -21,7 +21,7 @@ public class DBConf {
 
     public static void loadDbConfig(String confPath) throws IOException {
     	if(dbDefProperties == null) {
-    		InputStream inputStream = DBConf.class.getClassLoader().getResourceAsStream(dbConfName);
+    		InputStream inputStream = DBConf.class.getClassLoader().getResourceAsStream("conf/"+dbConfName);
     		if(inputStream == null) {
     			throw new IOException("default db config file not found.");
     		}
@@ -70,16 +70,27 @@ public class DBConf {
     }
     
     public static String getDbPoolConf(String name) {
-        return getDbPoolConf(name, null);
+        return getDbPoolConf(null, name, null);
     }
     
-    public static String getDbPoolConf(String name, String defaultValue) {
-        return getConfValue(dbPoolUsed+"."+name, defaultValue);
+    public static String getDbPoolConf(String dbname, String name) {
+    	return getDbPoolConf(dbname, name, null);
+    }
+    
+    public static String getDbPoolConf(String dbname, String name, String defaultValue) {
+    	return getConfValue((dbname==null?"":(dbname+"."))+dbPoolUsed+"."+name
+    			, dbname==null?defaultValue:getConfValue(dbPoolUsed+"."+name, defaultValue));
     }
     public static int getDbPoolConf(String name, int defaultValue) {
-        return ConvertUtils.parseInt(getDbPoolConf(name), defaultValue);
+        return getDbPoolConf(null, name, defaultValue);
+    }
+    public static int getDbPoolConf(String dbname, String name, int defaultValue) {
+    	return ConvertUtils.parseInt(getDbPoolConf(dbname, name), defaultValue);
     }
     public static boolean getDbPoolConf(String name, boolean defaultValue) {
-        return ConvertUtils.parseBoolean(getDbPoolConf(name), defaultValue);
+        return getDbPoolConf(null, name, defaultValue);
+    }
+    public static boolean getDbPoolConf(String dbname, String name, boolean defaultValue) {
+    	return ConvertUtils.parseBoolean(getDbPoolConf(dbname, name), defaultValue);
     }
 }
