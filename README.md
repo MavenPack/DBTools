@@ -10,7 +10,7 @@ allprojects {
 }
 
 dependencies {
-	implementation 'com.github.MavenPack:DBTools:0.0.4'
+	implementation 'com.github.MavenPack:DBTools:0.1'
 }
 ```
 
