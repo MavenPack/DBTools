@@ -21,7 +21,7 @@ public class DBConf {
 
     public static void loadDbConfig(String confPath) throws IOException {
     	if(dbDefProperties == null) {
-    		InputStream inputStream = DBConf.class.getClassLoader().getResourceAsStream("conf/"+dbConfName);
+    		InputStream inputStream = DBConf.class.getClassLoader().getResourceAsStream(dbConfName);
     		if(inputStream == null) {
     			throw new IOException("default db config file not found.");
     		}
