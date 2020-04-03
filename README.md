@@ -26,6 +26,6 @@ Maven:
 <dependency>
     <groupId>com.github.MavenPack</groupId>
     <artifactId>DBTools</artifactId>
-    <version>0.0.4</version>
+    <version>0.2</version>
 </dependency>
 ```
