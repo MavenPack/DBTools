@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.logicalcobwebs.proxool.ConnectionPoolDefinitionIF;
 import org.logicalcobwebs.proxool.ProxoolException;
 import org.logicalcobwebs.proxool.ProxoolFacade;
@@ -23,7 +24,7 @@ import com.yeild.common.dbtools.database.DbConnectionManager;
  */
 public class DefaultConnectionProvider implements ConnectionProvider {
 
-	private static final Logger Log = Logger.getLogger(DefaultConnectionProvider.class);
+	private static final Logger Log = LogManager.getLogger(DefaultConnectionProvider.class);
 
     private Properties settings;
     private String driver;

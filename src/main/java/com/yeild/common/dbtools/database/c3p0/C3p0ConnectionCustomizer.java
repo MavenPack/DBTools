@@ -2,12 +2,13 @@ package com.yeild.common.dbtools.database.c3p0;
 
 import java.sql.Connection;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.mchange.v2.c3p0.AbstractConnectionCustomizer;
 
 public class C3p0ConnectionCustomizer extends AbstractConnectionCustomizer {
-	Logger logger = Logger.getLogger(getClass().getSimpleName()); 
+	Logger logger = LogManager.getLogger(getClass().getSimpleName()); 
 
 	@Override
 	public void onAcquire(Connection c, String parentDataSourceIdentityToken) throws Exception {

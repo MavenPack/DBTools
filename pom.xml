@@ -4,7 +4,7 @@
 
 	<groupId>com.yeild.common</groupId>
 	<artifactId>dbtools</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${version}${version.snap}</version>
 	<packaging>jar</packaging>
 
 	<name>DBTools</name>
@@ -12,10 +12,15 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version>2.0.1</version>
+		<version.snap>-SNAPSHOT</version.snap>
 		<jdk.version>1.8</jdk.version>
 		<jdk.classifier></jdk.classifier>
+  		<log4j.version>2.14.1</log4j.version>
 		<postgresql.version>42.0.0</postgresql.version>
-		<!-- <postgresql.version>42.0.0.jre6</postgresql.version> -->
+		<!--
+		<postgresql.version>42.0.0.jre6</postgresql.version>
+		-->
 	</properties>
 
 	<profiles>
@@ -32,15 +37,16 @@
 		<profile>
 			<id>jdk16</id>
 			<properties>
+				<version>0.0.1</version>
 				<jdk.version>1.6</jdk.version>
-				<jdk.classifier>${jdk.version}</jdk.classifier>
+				<postgresql.version>42.0.0.jre6</postgresql.version>
 			</properties>
 		</profile>
 		<profile>
 			<id>jdk17</id>
 			<properties>
+				<version>1.0.1</version>
 				<jdk.version>1.7</jdk.version>
-				<jdk.classifier>${jdk.version}</jdk.classifier>
 			</properties>
 		</profile>
 	</profiles>
@@ -53,23 +59,21 @@
 	</repositories>
 
 	<dependencies>
-<!-- 		<dependency>
-			<groupId>com.yeild.common</groupId>
-			<artifactId>Utils</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-
-			<classifier>${jdk.classifier}</classifier>
-		</dependency> -->
 		<dependency>
+		    <groupId>com.yeild.common</groupId>
+		    <artifactId>Utils</artifactId>
+		    <version>${version}${version.snap}</version>
+		<!-- 		
 		    <groupId>com.github.MavenPack</groupId>
 		    <artifactId>Utils</artifactId>
 		    <version>0.1</version>
+		-->
 		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
+	    <dependency>
+	        <groupId>org.apache.logging.log4j</groupId>
+        	<artifactId>log4j-api</artifactId>
+	        <version>${log4j.version}</version>
+	    </dependency>
 		<dependency>
 			<groupId>com.mchange</groupId>
 			<artifactId>c3p0</artifactId>

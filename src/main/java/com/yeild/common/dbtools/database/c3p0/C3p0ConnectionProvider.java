@@ -4,7 +4,8 @@ import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.yeild.common.dbtools.DBConf;
 import com.yeild.common.dbtools.database.ConnectionProvider;
@@ -13,7 +14,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import com.mchange.v2.c3p0.DataSources;
 
 public class C3p0ConnectionProvider implements ConnectionProvider {
-	private Logger logger = Logger.getLogger(getClass().getSimpleName());
+	private Logger logger = LogManager.getLogger(getClass().getSimpleName());
 	private ComboPooledDataSource pooledDataSource;
     private String dbname;
 	

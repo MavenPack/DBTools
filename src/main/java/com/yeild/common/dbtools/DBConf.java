@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.yeild.common.Utils.ConvertUtils;
 
 public class DBConf {
-	private static Logger logger = Logger.getLogger(DBConf.class);
+	private static Logger logger = LogManager.getLogger(DBConf.class);
 	public static String dbConfName="db.properties";
 	public static String dbConfPath=null;
     private static Properties dbDefProperties = null;

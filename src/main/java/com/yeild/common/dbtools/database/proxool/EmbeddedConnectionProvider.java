@@ -8,7 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.yeild.common.dbtools.database.ConnectionProvider;
 import com.yeild.common.dbtools.database.DbConnectionManager;
@@ -23,7 +24,7 @@ import com.yeild.common.dbtools.database.DbConnectionManager;
  */
 public class EmbeddedConnectionProvider implements ConnectionProvider {
 	
-	private static final Logger Log = Logger.getLogger(EmbeddedConnectionProvider.class);
+	private static final Logger Log = LogManager.getLogger(EmbeddedConnectionProvider.class);
 
     private Properties settings;
     private String serverURL;

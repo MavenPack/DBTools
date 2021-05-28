@@ -13,7 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.yeild.common.Utils.ClassUtils;
 import com.yeild.common.dbtools.DBConf;
@@ -32,7 +33,7 @@ import com.yeild.common.dbtools.database.proxool.DefaultConnectionProvider;
  */
 public class DbConnectionManager {
 
-	private static final Logger Log = Logger.getLogger(DbConnectionManager.class);
+	private static final Logger Log = LogManager.getLogger(DbConnectionManager.class);
 
 //    private static ConnectionProvider connectionProvider;
     private static HashMap<String, ConnectionProvider> connectionProviders = new HashMap<String, ConnectionProvider>(1);
